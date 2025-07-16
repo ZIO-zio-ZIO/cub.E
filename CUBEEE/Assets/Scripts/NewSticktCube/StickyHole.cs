@@ -5,6 +5,8 @@ public class StickyHole : MonoBehaviour, ICubeSlot
     private PlayerStickyGrab playerGrab;
     private MovementPlayer playerMovement;
     private StickyCube cubeInHands;
+    [SerializeField] private GameObject visualLight;
+    [SerializeField] private ParticleSystem particles;
 
     public bool hasCube = false;
     private bool playerInside = false;
@@ -26,6 +28,14 @@ public class StickyHole : MonoBehaviour, ICubeSlot
                 cubeInHands = playerGrab.GetHeldCube();
                 if (cubeInHands != null)
                 {
+                    // Apagar luz visual
+                    if (visualLight != null)
+                        visualLight.SetActive(false);
+
+                    // Apagar partículas
+                    if (particles != null)
+                        particles.Stop();
+
                     // Colocar cubo en el hueco
                     cubeInHands.PlaceInHole(transform.position);
                     playerGrab.DropStickyCube();
