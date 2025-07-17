@@ -6,6 +6,9 @@ public class BigCubeHole : MonoBehaviour, ICubeSlot
 {
     [SerializeField] private Transform cubeDestination;
     [SerializeField] private bool _isLastCube = false;
+    [SerializeField] private GameObject visualLight; // Cubo de luz
+    [SerializeField] private ParticleSystem particles; // Sistema de partículas
+
     private bool isOccupied = false;
 
     public bool hasCube = false;
@@ -32,6 +35,14 @@ public class BigCubeHole : MonoBehaviour, ICubeSlot
         other.transform.rotation = cubeDestination.rotation;
         other.tag = "Untagged";
 
+        // Apagar luz visual
+        if (visualLight != null)
+            visualLight.SetActive(false);
+
+        // Apagar partículas
+        if (particles != null)
+            particles.Stop();
+
         isOccupied = true;
         hasCube = true;
 
@@ -51,6 +62,13 @@ public class BigCubeHole : MonoBehaviour, ICubeSlot
 
     public void ResetHole()
     {
+        // Reactivar efectos si querés que vuelvan a encenderse
+        if (visualLight != null)
+            visualLight.SetActive(true);
+
+        if (particles != null)
+            particles.Play();
+
         isOccupied = false;
         hasCube = false;
         Debug.Log("BigCubeHole reseteado.");
