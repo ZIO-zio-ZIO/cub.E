@@ -11,6 +11,8 @@ TagManager:
   - CubeSlot
   - Coin
   - Fire
+  - Grass
+  - Floor
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3911029794853009611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3268522326496502392}
+  - component: {fileID: 4229572327879234117}
+  m_Layer: 0
+  m_Name: VictoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3268522326496502392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3911029794853009611}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.20834, y: 0.60330963, z: -1.3568726}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1826081525694775818}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4229572327879234117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3911029794853009611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 844255064d69fb448a2ac22e8972112b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  victoryTextGroup: {fileID: 0}
+  whiteTransitionPanel: {fileID: 0}
+  whiteScreenHoldDuration: 1.58
+  victoryUIPanel: {fileID: 0}
+  delayBeforeShowingVictoryUI: 2
+  playerUIRoot: {fileID: 0}
+  coinCounterUI: {fileID: 0}
+  healthBarUI: {fileID: 0}
+  pauseButtonUI: {fileID: 0}
+  victoryMusicClip: {fileID: 8300000, guid: 33c960d680ec08c4abdb022e44ac86f3, type: 3}
+  musicFadeOutDuration: 1.67
+  nightSkybox: {fileID: 2100000, guid: 1065b432639a84123a07ea43fe5ba4c9, type: 2}
+  directionalLight: {fileID: 0}
+  nightLightColor: {r: 0.3, g: 0.4, b: 0.6, a: 1}
+  nightLightIntensity: 0.3
+  firefliesPrefab: {fileID: 0}
+  fireworksPrefab: {fileID: 0}
+  finalCameraPosition: {fileID: 1826081525694775818}
+  cameraMoveDuration: 0.65
+  player: {fileID: 0}
+--- !u!1 &8790012810782541634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1826081525694775818}
+  m_Layer: 0
+  m_Name: CameraVictoryPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1826081525694775818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790012810782541634}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.12814274, y: -0.53989065, z: 0.08358318, w: 0.8277146}
+  m_LocalPosition: {x: 81.808334, y: 26.596691, z: -37.243126}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3268522326496502392}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

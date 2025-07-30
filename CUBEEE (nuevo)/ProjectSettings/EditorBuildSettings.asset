@@ -16,18 +16,18 @@ EditorBuildSettings:
     guid: fe1db24138490da42b603ddd294d20df
   - enabled: 1
     path: Assets/Scenes/NEW SCENES/Level_1.unity
-    guid: 3464b10ba9dae534fbc01ca22b45e00b
+    guid: 7b6b891006913b046adc7ee5ffa69434
   - enabled: 1
-    path: Assets/Scenes/NEW SCENES/Level_2.unity
+    path: Assets/Scenes/NEW SCENES/Level_4.unity
     guid: dc147b0472157a74e919c2b3c0c5e034
   - enabled: 1
     path: Assets/Scenes/NEW SCENES/Level_3.unity
     guid: 6e29ca4c30173f14c943c668213bc385
   - enabled: 1
-    path: Assets/Scenes/NEW SCENES/Level_5.unity
+    path: Assets/Scenes/NEW SCENES/Level_6.unity
     guid: 2cf830242d4dde149a8b3cc083e85ca2
   - enabled: 1
-    path: Assets/Scenes/NEW SCENES/Level_4.unity
+    path: Assets/Scenes/NEW SCENES/Level_5.unity
     guid: 91958e76ffb3b1846964ae60385126fc
   - enabled: 1
     path: Assets/Scenes/VictoryScreen.unity

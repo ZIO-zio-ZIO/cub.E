@@ -6,9 +6,11 @@ public class ResetScene : MonoBehaviour
 {
     void Update()
     {
+        if (VictoryManager.VictoryInProgress) return;
+
         if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(RestartAfterDelay(0.2f)); 
+            StartCoroutine(RestartAfterDelay(0.2f));
         }
     }
 

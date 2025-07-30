@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MovementPlayer : MonoBehaviour
 {
+    private bool wasGrounded = true;
+    private string currentSurfaceTag = "Untagged";
+
     [Header("Step Settings")]
     [SerializeField] private float stepHeight = 0.3f;
     [SerializeField] private float stepCheckDistance = 0.5f;
@@ -33,7 +36,7 @@ public class MovementPlayer : MonoBehaviour
 
     private float coyoteTimer;
     private float jumpBufferTimer;
-    private bool justJumped = false; // <- NUEVO
+    private bool justJumped = false;
 
     private Animator _animator;
     private bool isMovementLocked = false;
@@ -41,6 +44,10 @@ public class MovementPlayer : MonoBehaviour
     private Vector3 _dir = new(), _posOffset = new();
     private Ray _groundRay;
     public bool IsFrozen { get; set; } = false;
+
+    // Variables para suavizado manual del input
+    private float _xSmooth = 0.5f;
+    private float _zSmooth = 0.5f;
 
     public void SetMovementLocked(bool state)
     {
@@ -55,12 +62,31 @@ public class MovementPlayer : MonoBehaviour
 
     private void Update()
     {
+        
         if (isMovementLocked || IsFrozen) return;
 
-        _dir.x = Input.GetAxis("Horizontal");
-        _dir.z = Input.GetAxis("Vertical");
+        float xRaw = Input.GetAxisRaw("Horizontal");
+        float zRaw = Input.GetAxisRaw("Vertical");
+
+        float accelerationSpeed = 20f;
+        float decelerationSpeed = 15f;
+
+        // Suavizado para X
+        if (Mathf.Abs(xRaw) > Mathf.Abs(_xSmooth))
+            _xSmooth = Mathf.MoveTowards(_xSmooth, xRaw, accelerationSpeed * Time.deltaTime);
+        else
+            _xSmooth = Mathf.MoveTowards(_xSmooth, xRaw, decelerationSpeed * Time.deltaTime);
+
+        // Suavizado para Z
+        if (Mathf.Abs(zRaw) > Mathf.Abs(_zSmooth))
+            _zSmooth = Mathf.MoveTowards(_zSmooth, zRaw, accelerationSpeed * Time.deltaTime);
+        else
+            _zSmooth = Mathf.MoveTowards(_zSmooth, zRaw, decelerationSpeed * Time.deltaTime);
+
+        _dir = new Vector3(_xSmooth, 0f, _zSmooth);
 
         float speed = new Vector2(_dir.x, _dir.z).magnitude;
+        //PlayerAudioManager.Instance?.HandleFootstepSound(speed > 0f, _isGrounded);
 
         if (_dir.sqrMagnitude > 0)
         {
@@ -81,19 +107,16 @@ public class MovementPlayer : MonoBehaviour
 
         _isGrounded = IsGrounded();
 
-        // Coyote Time
-        if (_isGrounded && !justJumped) // <- Evitamos reiniciar si recién saltamos
+        if (_isGrounded && !justJumped)
             coyoteTimer = coyoteTime;
         else
             coyoteTimer -= Time.deltaTime;
 
-        // Jump Buffering
         if (Input.GetKeyDown(KeyCode.Space))
             jumpBufferTimer = jumpBufferTime;
         else
             jumpBufferTimer -= Time.deltaTime;
 
-        // Jump Condition
         if (jumpBufferTimer > 0 && coyoteTimer > 0)
         {
             Jump();
@@ -102,6 +125,22 @@ public class MovementPlayer : MonoBehaviour
         }
 
         HandleBetterJump();
+
+        RaycastHit groundHit;
+        bool groundDetected = Physics.Raycast(transform.position, Vector3.down, out groundHit, _grounRayDistance + 0.2f, _groundRayMask);
+
+        if (groundDetected)
+        {
+            currentSurfaceTag = groundHit.collider.tag;
+
+            if (!wasGrounded)
+            {
+                PlayerAudioManager.Instance?.PlayLandingSound(currentSurfaceTag);
+            }
+        }
+
+        wasGrounded = groundDetected;
+
     }
 
     private void FixedUpdate()
@@ -117,7 +156,9 @@ public class MovementPlayer : MonoBehaviour
         camRight.Normalize();
 
         Vector3 inputDir = camForward * _dir.z + camRight * _dir.x;
-        inputDir.Normalize();
+
+        if (inputDir.sqrMagnitude > 0.01f)
+            inputDir.Normalize();
 
         Vector3 currentVelocity = _rb.velocity;
         Vector3 targetVelocity = inputDir * _moveSpeed;
@@ -125,13 +166,19 @@ public class MovementPlayer : MonoBehaviour
 
         if (_isGrounded)
         {
-            Vector3 smoothVelocity = Vector3.Lerp(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-            _rb.velocity = smoothVelocity;
-
             if (inputDir.sqrMagnitude > 0.01f)
             {
+                Vector3 smoothVelocity = Vector3.Lerp(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+                _rb.velocity = smoothVelocity;
+
                 Quaternion targetRotation = Quaternion.LookRotation(inputDir) * Quaternion.Euler(0, 180, 0);
                 _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime));
+            }
+            else
+            {
+                Vector3 horizontalVel = new Vector3(currentVelocity.x, 0, currentVelocity.z);
+                horizontalVel = Vector3.MoveTowards(horizontalVel, Vector3.zero, deceleration * Time.fixedDeltaTime);
+                _rb.velocity = new Vector3(horizontalVel.x, currentVelocity.y, horizontalVel.z);
             }
         }
         else
@@ -144,7 +191,6 @@ public class MovementPlayer : MonoBehaviour
         }
 
         TryClimbStep();
-
     }
 
     private bool IsGrounded()
@@ -165,8 +211,8 @@ public class MovementPlayer : MonoBehaviour
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         _isGrounded = false;
 
-        justJumped = true; // <- Activamos la protección
-        StartCoroutine(ResetJustJumped()); // <- La desactivamos luego de un delay
+        justJumped = true;
+        StartCoroutine(ResetJustJumped());
 
         PlayerAudioManager.Instance.PlayJumpSound();
     }
@@ -189,25 +235,20 @@ public class MovementPlayer : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(_groundRay);
-    }
-
     private IEnumerator StuckCooldown()
     {
         stuckCooldown = true;
         yield return new WaitForSeconds(stuckCooldownDelay);
         stuckCooldown = false;
     }
+
     private void TryClimbStep()
     {
         Vector3[] directions = new Vector3[]
         {
-        transform.forward,
-        (transform.forward + transform.right).normalized,
-        (transform.forward - transform.right).normalized
+            transform.forward,
+            (transform.forward + transform.right).normalized,
+            (transform.forward - transform.right).normalized
         };
 
         foreach (var dir in directions)
@@ -226,4 +267,9 @@ public class MovementPlayer : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(_groundRay);
+    }
 }

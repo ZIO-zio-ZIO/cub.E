@@ -19,7 +19,7 @@ public class NivelSelector : MonoBehaviour
 
     void GenerateLevelButtons()
     {
-        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 5);
+        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
 
         for (int i = 0; i < totalLevels; i++)
         {

@@ -44,7 +44,7 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_Iso: 200
@@ -66,7 +66,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1554.7
-  field of view: 22
+  field of view: 26.991467
   orthographic: 0
   orthographic size: 22.46
   m_Depth: 0
@@ -138,12 +138,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  distance: 10.8
-  zoomedDistance: 1.65
-  rotationSpeed: 3.83
+  distance: 16.8
+  zoomedDistance: 5
+  rotationSpeed: 6
   clampPitch: 1
-  minPitch: -100
-  maxPitch: 55
-  followSpeed: 0.5
+  minPitch: -70
+  maxPitch: 75
+  followSpeed: 6
   normalFOV: 60
   zoomedFOV: 60.5
+  enableCollision: 1
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 64
+  collisionRadius: 1.63
+  minDistance: 1

@@ -50,6 +50,10 @@ public class SoundManager : MonoBehaviour
         SetSfxVolume(_initSfxVol);
         SetUiVolume(_initUiVol);
     }
+    public AudioSource GetAudioSource()
+    {
+        return _source;
+    }
 
     public void SetMasterVolume(float value)
     {

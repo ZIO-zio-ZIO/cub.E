@@ -5,8 +5,11 @@ public class StickyHole : MonoBehaviour, ICubeSlot
     private PlayerStickyGrab playerGrab;
     private MovementPlayer playerMovement;
     private StickyCube cubeInHands;
+
     [SerializeField] private GameObject visualLight;
     [SerializeField] private ParticleSystem particles;
+
+    [SerializeField] private Transform stickySnapPosition; // NUEVO: punto al que se mueve el jugador
 
     public bool hasCube = false;
     private bool playerInside = false;
@@ -43,14 +46,27 @@ public class StickyHole : MonoBehaviour, ICubeSlot
                     // Congelar al jugador
                     playerMovement.IsFrozen = true;
 
+                    Rigidbody playerRb = playerMovement.GetComponent<Rigidbody>();
+                    if (playerRb != null)
+                    {
+                        playerRb.velocity = Vector3.zero;
+                        playerRb.angularVelocity = Vector3.zero;
+                        playerRb.isKinematic = true; // ¡esto lo congela físicamente!
+                    }
+
+                    // Mover al jugador a la posición de snap (si está asignada)
+                    if (stickySnapPosition != null)
+                    {
+                        playerMovement.transform.position = stickySnapPosition.position;
+                        playerMovement.transform.rotation = stickySnapPosition.rotation;
+                    }
+
                     hasCube = true;
 
-                    // Registrar el cubo colocado en orden
+                    // Registrar en LevelOrderManager
                     LevelOrderManager lom = FindObjectOfType<LevelOrderManager>();
                     if (lom != null)
-                    {
                         lom.RegisterCube(cubeInHands.gameObject);
-                    }
 
                     Debug.Log("Sticky cube colocado en su hueco.");
                 }
@@ -70,11 +86,16 @@ public class StickyHole : MonoBehaviour, ICubeSlot
             playerInside = false;
     }
 
-    // Método para resetear estado si se necesita
     public void ResetHole()
     {
         hasCube = false;
-        playerMovement.IsFrozen = false;  // Descongelar jugador si aplica
+        playerMovement.IsFrozen = false;
+
+        Rigidbody playerRb = playerMovement.GetComponent<Rigidbody>();
+        if (playerRb != null)
+            playerRb.isKinematic = false;
+
         Debug.Log("StickyHole reseteado.");
     }
+
 }

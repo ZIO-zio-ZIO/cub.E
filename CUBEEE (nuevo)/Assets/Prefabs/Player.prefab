@@ -105,6 +105,73 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &881132928943663260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6807576978330983396}
+  - component: {fileID: 3980014169248295491}
+  - component: {fileID: 5205512669708934245}
+  m_Layer: 3
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6807576978330983396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881132928943663260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.618, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1251594774741788388}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3980014169248295491
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881132928943663260}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.33, y: 0.088329315, z: 0.25}
+  m_Center: {x: -0.011412621, y: -0.06, z: -0.0013165474}
+--- !u!114 &5205512669708934245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881132928943663260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ab00a5269706a4e900b2c22f9a7004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepInterval: 0.5
 --- !u!1 &1022491973198950131
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,7 +865,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3367764846845439569}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b8fa54ea7544994428a967a6deffe333, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -864,6 +931,7 @@ Transform:
   - {fileID: 45716415164705589}
   - {fileID: 5994053187453125220}
   - {fileID: 3235370040670651665}
+  - {fileID: 6807576978330983396}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7085840477187594265
@@ -905,9 +973,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcc4ee36fada744b977984a91e61311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepHeight: 0.98
-  stepCheckDistance: 0.54
-  stepSmooth: 0.93
+  stepHeight: 1.4
+  stepCheckDistance: 0.93
+  stepSmooth: 1.39
   stairsLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -916,17 +984,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147486144
   _cameraTransform: {fileID: 0}
-  _moveSpeed: 9.41
-  _rotationSpeed: 34.9
+  _moveSpeed: 10.6
+  _rotationSpeed: 44
   _grounRayDistance: 2
   _jumpForce: 14.3
-  airControlMultiplier: 0.5
-  acceleration: 10
-  deceleration: 12
+  airControlMultiplier: 0.44
+  acceleration: 11.5
+  deceleration: 42.4
   _isGrounded: 0
   _extraForce: 0
-  coyoteTime: 0.2
-  jumpBufferTime: 0.2
+  coyoteTime: 0.35
+  jumpBufferTime: 0.35
   _rb: {fileID: 0}
 --- !u!114 &8094449797247573467
 MonoBehaviour:
@@ -1013,7 +1081,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3587404216706296377}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b8fa54ea7544994428a967a6deffe333, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1059,7 +1127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinText: {fileID: 0}
-  collectSound: {fileID: 8300000, guid: 93830287ed1678d43926e9a16ade14c0, type: 3}
+  collectSound: {fileID: 8300000, guid: 09e674361f8721c43808df7fa3b14509, type: 3}
 --- !u!114 &51692627027625091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1076,11 +1144,21 @@ MonoBehaviour:
   jumpClip: {fileID: 8300000, guid: 35af69644ee5d7f448045ecd1d5deb6e, type: 3}
   grabClip: {fileID: 8300000, guid: 549dfd1cc8dfcd648975dfcfffed2b9f, type: 3}
   dropClip: {fileID: 8300000, guid: 511808bdde97e2d418aff6aa15091da9, type: 3}
-  coinClip: {fileID: 8300000, guid: 93830287ed1678d43926e9a16ade14c0, type: 3}
+  coinClip: {fileID: 8300000, guid: 09e674361f8721c43808df7fa3b14509, type: 3}
   stickyGrabClip: {fileID: 8300000, guid: c59a4c35de090cf44bdb482e058b0a45, type: 3}
   pushPullClip: {fileID: 8300000, guid: 4510835324162114392184438233b2a9, type: 3}
   loopSource: {fileID: 5810993913640619644}
   stuckClip: {fileID: 8300000, guid: 90bf66b2e8e97bc42a74af274e7bef83, type: 3}
+  grassFootstepClip: {fileID: 8300000, guid: 8b8ddba6e57cddf4b81a63defd0ad0a5, type: 3}
+  floorFootstepClip: {fileID: 8300000, guid: bb165c3b7b55b344aa2091581910d10a, type: 3}
+  stepInterval: 0.5
+  groundCheck: {fileID: 6807576978330983396}
+  groundCheckDistance: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  landingFloorClip: {fileID: 8300000, guid: fd91252e939cefd4fa4c17e2f8c9abb3, type: 3}
+  landingGrassClip: {fileID: 8300000, guid: 58c6ba772b926f34f879fe53d899834d, type: 3}
 --- !u!114 &8710039006879410557
 MonoBehaviour:
   m_ObjectHideFlags: 0

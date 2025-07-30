@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6538,6 +6538,18 @@ PrefabInstance:
       propertyPath: _clipToPlay
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5273969303667154791, guid: ea28ca8f0fa27f441a547b9ea4b984d3, type: 3}
+      propertyPath: musicGroupID
+      value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5273969303667154791, guid: ea28ca8f0fa27f441a547b9ea4b984d3, type: 3}
+      propertyPath: playlist.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5273969303667154791, guid: ea28ca8f0fa27f441a547b9ea4b984d3, type: 3}
+      propertyPath: playlist.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: c474e092236dff6418f318e5f7440032, type: 3}
     - target: {fileID: 7678781612300214706, guid: ea28ca8f0fa27f441a547b9ea4b984d3, type: 3}
       propertyPath: m_Name
       value: MusicRequester
